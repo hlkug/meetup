@@ -37,4 +37,5 @@
 . 노트북에 Virtual Box/VM Ware를 통한 2개 Ubuntu 16.04 VM 사전 구성이 필요합니다.
 
 > 사전 작업 자료 - https://github.com/hlkug/meetup/blob/master/201903/사전%20작업.md
+>
 > 설치 관련 문의는 슬랙 #meetup채널을 이용하시면 됩니다. http://bit.ly/hyperledger-korea
