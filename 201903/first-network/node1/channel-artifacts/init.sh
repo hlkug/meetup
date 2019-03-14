@@ -8,9 +8,8 @@ VERSION="1.0"
 LANGUAGE="golang"
 CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
 
-setGlobals 0 1
-
 echo "Creating channel..."
+setGlobals 0 1
 set -x
 ####
 set +x

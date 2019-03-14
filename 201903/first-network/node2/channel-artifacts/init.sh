@@ -8,6 +8,12 @@ VERSION="1.0"
 LANGUAGE="golang"
 CC_SRC_PATH="github.com/chaincode/chaincode_example02/go/"
 
+echo "Fetching genesis block.."
+setGlobals 0 2
+set -x
+####
+set +x
+
 echo "Having all peers for org2 join the channel..."
 setGlobals 0 2
 set -x
