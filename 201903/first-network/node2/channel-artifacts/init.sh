@@ -36,14 +36,14 @@ setGlobals 0 2
 set -x
 ####
 set +x
-sleep 1
+sleep 3
 
 echo "Installing chaincode on peer1.org2..."
 setGlobals 1 2
 set -x
 ####
 set +x
-sleep 1
+sleep 3
 
 
 echo "Querying chaincode on peer0.org2..."
