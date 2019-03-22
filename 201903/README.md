@@ -1,41 +1,16 @@
-2019년 세번째 밋업입니다.
+**[ 주제 ]**
+세번째 밋업 - 멀티 노드에서 하이퍼레저 패브릭 네트워크 구성하기
 
-이 번 밋업은 Docker, Docker Compose를 이용한 멀티 노드에서 하이퍼레저 패브릭 네트워크를 구성하는 핸즈온 랩으로 진행됩니다.
+**[ 일시 및 참석 인원 ]**
+일시 : 2019년 3월 21일 목요일 18:30 ~ 21:30
+참석 인원 : 41명
 
+**[ 자료 ]**
+. 사전 작업 자료 - https://github.com/hlkug/meetup/blob/master/201903/사전%20작업.md
+. 핸즈온 랩 자료 - https://github.com/hlkug/meetup/blob/master/201903/핸즈온%20랩.md
+. 발표 자료 - https://www.slideshare.net/secret/BSpfl6cJtvDpHp
 
+**[ 밋업 현장 ]**
 
-**[ 일시 및 장소 ]**
+![IMG_0693](https://github.com/hlkug/meetup/blob/master/201903/images/IMG_0693.JPG)
 
-일시 : 3월 21일 목요일 18:30 ~ 21:30
-
-장소 : SDS 잠실캠퍼스 동관 5층 X-Room
-
-인원 : 40명
-
-
-
-**[ 아젠다 ]**
-
-18:30 ~ 19:00 네트워킹 및 간단한 간식
-
-19:00 ~ 19:05 그룹 소식 및 공지
-
-19:05 ~ 21:00 멀티 노드에서 하이퍼레저 패브릭 네트워크 구성하기
-
-21:00 ~ 21:30 Q/A, 정리 및 퇴실
-
-
-
-**[ 유의사항 ]**
-
-. 본 밋업은 하이퍼레저 패브릭 아키텍쳐 이해자 대상입니다.
-
-. Docker, Docker Compose를 통한 멀티 노드에서 네트워크 구성하는 실습(기초)입니다.
-
-. 실습 밋업으로 진행되어 노트북을 준비하셔야 합니다.
-
-. 노트북에 Virtual Box/VM Ware를 통한 2개 Ubuntu 16.04 VM 사전 구성이 필요합니다.
-
-> 사전 작업 자료 - https://github.com/hlkug/meetup/blob/master/201903/사전%20작업.md
->
-> 설치 관련 문의는 슬랙 #meetup채널을 이용하시면 됩니다. http://bit.ly/hyperledger-korea
