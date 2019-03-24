@@ -9,6 +9,8 @@
   - 사전 작업 자료 - https://github.com/hlkug/meetup/blob/master/201903/사전%20작업.md
   - 핸즈온 랩 자료 - https://github.com/hlkug/meetup/blob/master/201903/핸즈온%20랩.md
   - 발표 자료 - https://www.slideshare.net/secret/BSpfl6cJtvDpHp
+- 설문 조사 결과
+  -  https://github.com/hlkug/meetup/blob/master/201903/feedback.pdf
 
 - 밋업 현장
 
