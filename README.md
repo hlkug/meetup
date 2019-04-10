@@ -1,3 +1,10 @@
+
+#### [다섯번째 밋업 (2019년 4월 17일 수요일)](https://github.com/hlkug/meetup/tree/master/201904)
+
+- "쿠버네티스 기반 하이퍼레저 패브릭 네트워크 구축하기(HLKUG 운영진)"
+
+---
+
 #### [네번째 밋업 (2019년 3월 21일 목요일)](https://github.com/hlkug/meetup/tree/master/201903)
 
 - "멀티 노드에서 하이퍼레저 패브릭 네트워크 구성하기"
