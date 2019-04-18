@@ -14,5 +14,5 @@
 
 - 밋업 현장
 
-![IMG_0693](https://github.com/hlkug/meetup/blob/master/201904/images/IMG_4366.JPG)
+![IMG_0693](https://github.com/hlkug/meetup/blob/master/201904/images/IMG_4366.jpeg)
 
