@@ -30,5 +30,5 @@
         Req 인입을 조절 하기 위해 존재하는 설정이다.
 - **밋업 현장**
 
-![IMG_0693](https://github.com/hlkug/meetup/blob/master/201905/images/UNADJUSTEDNONRAW_thumb_2be1.jpeg)
+![IMG_0693](https://github.com/hlkug/meetup/blob/master/201905/images/UNADJUSTEDNONRAW_thumb_2be1.jpg)
 
