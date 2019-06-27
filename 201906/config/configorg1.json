@@ -1,0 +1,29 @@
+{
+  "ChannelID":"",
+  "MSPInfo":{
+    "MSPConfigPath":"",
+    "MSPID":"Org1MSP",
+    "MSPType":"bccsp"
+  },
+  "Orderer":{
+    "Address":"orderer.example.com:7050",
+    "ConnectionTimeout":0,
+    "TLSEnabled":true,
+    "TLSRootCertFile":"/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem",
+    "ServerNameOverride":""
+  },
+  "CommitterPeer":{
+    "Address":"peer0.org1.example.com:7051",
+    "ConnectionTimeout":0,
+    "TLSEnabled":true,
+    "TLSRootCertFile":"/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt",
+    "ServerNameOverride":""
+  },
+  "ProverPeer":{
+    "Address":"peer0.org1.example.com:7051",
+    "ConnectionTimeout":0,
+    "TLSEnabled":true,
+    "TLSRootCertFile":"/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org1.example.com/peers/peer0.org1.example.com/tls/ca.crt",
+    "ServerNameOverride":""
+  }
+}

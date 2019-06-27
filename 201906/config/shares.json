@@ -1,0 +1,6 @@
+[
+    {
+    "recipient":"Org2MSP:/opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/peerOrganizations/org2.example.com/users/User1@org2.example.com/msp",
+    "quantity":"50"
+    }
+]
