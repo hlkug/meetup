@@ -6,10 +6,9 @@
   - 일시 : 2019년 6월 27일 목요일 19:00 ~ 20:30
   - 참석 인원 : 37명
 - **질문 목록(sli.do)**
-  
-  - 
 - **자료**
   - 발표 자료 - https://www.slideshare.net/secret/mOK4nVBWIFKBOR
+  - 실습 자료 - [https://github.com/hlkug/meetup/blob/master/201906/핸즈온%20랩.md](https://github.com/hlkug/meetup/blob/master/201906/핸즈온%20랩.md)
 - **설문 조사 결과**
   - https://github.com/hlkug/meetup/blob/master/201906/feedback.pdf
   
