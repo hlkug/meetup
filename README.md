@@ -1,3 +1,9 @@
+#### [일곱번째 밋업 (2019년 6월 27일 목요일)](https://github.com/hlkug/meetup/tree/master/201906)
+
+- 하이퍼레저 패브릭 FabToken Overview 및 실습
+
+------
+
 #### [여섯번째 밋업 (2019년 5월 24일 금요일)](https://github.com/hlkug/meetup/tree/master/201905)
 
 - Hyperledger 재단 소개와 글로벌 유스 케이스
