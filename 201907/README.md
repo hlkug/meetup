@@ -44,7 +44,7 @@ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/c
 ~~~shell
 <fabric-samples/bin 디렉토리>/cryptogen generate --config=./crypto-config.yaml
 export FABRIC_CFG_PATH=$PWD
-<fabric-samples/bin 디렉토리>/configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+<fabric-samples/bin 디렉토리>/configtxgen -profile TwoOrgsOrdererGenesis -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
 export CHANNEL_NAME=mychannel
 <fabric-samples/bin 디렉토리>/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
 <fabric-samples/bin 디렉토리>/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
