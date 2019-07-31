@@ -1,5 +1,10 @@
 # Hyperledger Fabric v2.0.0-alpha Raft 적용하기
 
+## 준비사항
+#### fabric-samples 및 소스받기
+1. Fabric-samples (https://hyperledger-fabric.readthedocs.io/en/latest/install.html)
+2. Github (https://github.com/mjkong/mymarket.git)
+
 ## 환경변수 참조
 ### peer0.org1
 ~~~shell
@@ -34,8 +39,22 @@ CORE_PEER_TLS_ROOTCERT_FILE=/opt/gopath/src/github.com/hyperledger/fabric/peer/c
 ~~~
 
 ## Create certificate and channel artifacts
+>> mymarket 프로젝트 디렉토리에서 실행
+
+~~~shell
+<fabric-samples/bin 디렉토리>/cryptogen generate --config=./crypto-config.yaml
+export FABRIC_CFG_PATH=$PWD
+<fabric-samples/bin 디렉토리>/configtxgen -profile SampleMultiNodeEtcdRaft -channelID byfn-sys-channel -outputBlock ./channel-artifacts/genesis.block
+export CHANNEL_NAME=mychannel
+<fabric-samples/bin 디렉토리>/configtxgen -profile TwoOrgsChannel -outputCreateChannelTx ./channel-artifacts/channel.tx -channelID $CHANNEL_NAME
+<fabric-samples/bin 디렉토리>/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org1MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org1MSP
+<fabric-samples/bin 디렉토리>/configtxgen -profile TwoOrgsChannel -outputAnchorPeersUpdate ./channel-artifacts/Org2MSPanchors.tx -channelID $CHANNEL_NAME -asOrg Org2MSP
+~~~
 
 ## Start fabric network
+~~~shell
+docker-compose -f docker-compose-cli.yaml -f docker-compose-etcdraft2.yaml up -d
+~~~
 
 ## Channel configuration
 ### Create channel
