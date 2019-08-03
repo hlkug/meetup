@@ -1,3 +1,15 @@
+#### [여덟번째 밋업 (2019년 7월 31일 수요일)](https://github.com/hlkug/meetup/tree/master/201907)
+
+- RAFT 맛보기
+
+------
+
+#### 세번째 미니밋업 (2019년 7월 18일 목요일)
+
+- Consensus 2019 NY 탐방기, 그 후 2개월간의 동향
+
+------
+
 #### [일곱번째 밋업 (2019년 6월 27일 목요일)](https://github.com/hlkug/meetup/tree/master/201906)
 
 - 하이퍼레저 패브릭 FabToken Overview 및 실습
