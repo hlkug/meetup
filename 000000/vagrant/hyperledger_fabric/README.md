@@ -2,6 +2,18 @@
 
 [TOC]
 
+## 0. Vagrant?
+
+Vagrant는 개발 환경을 구축하고 배포하기 위한 도구입니다.
+
+Vagrant에서 관리하는 개발 환경은 VirtualBox 또는 VMware와 같은 로컬 가상화 플랫폼, AWS 또는 OpenStack을 통한 클라우드 또는 Docker 또는 원시 LXC와 같은 컨테이너에서 실행할 수 있습니다.
+
+Vagrant는 완전한 휴대용 개발 환경을 만들고 관리하기 위한 프레임워크와 구성 형식을 제공합니다. 이러한 개발 환경은 컴퓨터나 클라우드에서 사용할 수 있으며, Windows, Mac OS X 및 Linux 간에 이동 가능합니다.
+
+* https://www.vagrantup.com
+
+
+
 ## 1. VirtualBox 설치
 
 아래 링크에서 본인 노트북 OS에 맞는 프로그램을 다운로드 받아 설치합니다.
