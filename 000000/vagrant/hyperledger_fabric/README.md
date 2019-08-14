@@ -42,7 +42,7 @@ Latest Version: 2.2.5
 
 VM에 할당하는 디스크 용량을 지정하기 위해 vagrant-disksize 플러그인을 설치합니다.
 
-기본적으로 10G가 할당되면 vagrant-disksize 플러그인을 통해서 10G이상 할당할 수 있습니다. 단, 줄일 수는 없습니다.
+기본적으로 10G가 할당되며 vagrant-disksize 플러그인을 통해서 10G이상 할당할 수 있습니다. 단, 줄일 수는 없습니다.
 
 - https://github.com/sprotheroe/vagrant-disksize
 
@@ -57,7 +57,7 @@ Installed the plugin 'vagrant-disksize (0.1.3)'!
 
 ## 4. Box(Image) 다운로드
 
-Ubuntu 16.04 LTS Box(Image)를 다운 받습니다.
+Ubuntu 16.04 LTS Box(Image)를 다운 받습니다. Docker Container구동을 위해 Docker Image를 다운 받는것과 동일합니다.
 
 ```shell
 $ vagrant box add ubuntu/xenial64
@@ -161,7 +161,9 @@ end
 
 ## 6. VM(Guest Machine) 생성
 
-Vagrantfile을 기반으로 VM(Guest Machine)을 생성합니다. VM 생성 중 Hyperledger Fabric 1.4.2 에 포함된 fabric-samples 구동을 위한 환경까지 설정됩니다. Go, Docker, Docker Compose, Hyperledger Fabric Docker Image & Sample(1.4.2)
+Vagrantfile을 기반으로 VM(Guest Machine)을 생성합니다. VM 생성 중 Hyperledger Fabric 1.4.2 에 포함된 fabric-samples 구동을 위한 환경까지 설정됩니다. VM생성시 몇분이 소요됩니다. 
+
+* Go, Docker, Docker Compose, Hyperledger Fabric Docker Image & Sample(1.4.2) 설치
 
 ```shell
 $ ls 
