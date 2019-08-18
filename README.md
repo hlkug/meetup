@@ -1,3 +1,9 @@
+#### 네번째 미니밋업 (2019년 8월 12일 월요일)
+
+- Hyperleger Fabric 기반의 상용서비스 개발 후기
+
+------
+
 #### [여덟번째 밋업 (2019년 7월 31일 수요일)](https://github.com/hlkug/meetup/tree/master/201907)
 
 - RAFT 맛보기
