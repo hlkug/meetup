@@ -1,3 +1,9 @@
+#### [아홉번째 밋업 (2019년 8월 22일 목요일)](https://github.com/hlkug/meetup/tree/master/201908)
+
+- Hyperledger Fabric 소개 및 첫 네트워크 구축하기
+
+------
+
 #### 네번째 미니밋업 (2019년 8월 12일 월요일)
 
 - Hyperleger Fabric 기반의 상용서비스 개발 후기
