@@ -53,24 +53,28 @@ Fetching: vagrant-disksize-0.1.3.gem (100%)
 Installed the plugin 'vagrant-disksize (0.1.3)'!
 ```
 
+ 
 
+<u>**※ VMWare가 이미 설치되어있는 경우 vagrant 명령어에 --provider virtualbox 옵션을 추가해야 합니다.**</u> 
+
+예> $ vagrant box add **<u>*--provider virtualbox*</u>** bento/ubuntu-16.04
 
 ## 4. Box(Image) 다운로드
 
 Ubuntu 16.04 LTS Box(Image)를 다운 받습니다. Docker Container구동을 위해 Docker Image를 다운 받는것과 동일합니다.
 
 ```shell
-$ vagrant box add ubuntu/xenial64
-==> box: Loading metadata for box 'ubuntu/xenial64'
-    box: URL: https://vagrantcloud.com/ubuntu/xenial64
-==> box: Adding box 'ubuntu/xenial64' (v20190807.0.0) for provider: virtualbox
-    box: Downloading: https://vagrantcloud.com/ubuntu/boxes/xenial64/versions/20190807.0.0/providers/virtualbox.box
-    box: Download redirected to host: cloud-images.ubuntu.com
-==> box: Successfully added box 'ubuntu/xenial64' (v20190807.0.0) for 'virtualbox'!
+$ vagrant box add --provider virtualbox bento/ubuntu-16.04
+==> box: Loading metadata for box 'bento/ubuntu-16.04'
+    box: URL: https://vagrantcloud.com/bento/ubuntu-16.04
+==> box: Adding box 'bento/ubuntu-16.04' (v201906.18.0) for provider: virtualbox
+    box: Downloading: https://vagrantcloud.com/bento/boxes/ubuntu-16.04/versions/201906.18.0/providers/virtualbox.box
+    box: Download redirected to host: vagrantcloud-files-production.s3.amazonaws.com
+==> box: Successfully added box 'bento/ubuntu-16.04' (v201906.18.0) for 'virtualbox'!
 
 # Box(Image) 목록 확인
-$ vargrant box list
-ubuntu/xenial64 (virtualbox, 20190807.0.0)
+$ vagrant box list
+bento/ubuntu-16.04 (virtualbox, 201906.18.0)
 ```
 
 
@@ -81,8 +85,8 @@ Vagrantfile에 VM 형식, 설정, 프로비전등을 설정하는 설정 파일�
 
 아래 파일을 본인 노트북 특정 위치에 다운로드 받습니다. 
 
-* https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/Vagrantfile
-
+* Hyperledger Fabric 1.4.x
+* https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/1.4.x/Vagrantfile
 * Vagrantfile 설명
   * VM 수: vm_num
   * VM 형식: config.vm.box
@@ -93,7 +97,7 @@ Vagrantfile에 VM 형식, 설정, 프로비전등을 설정하는 설정 파일�
   * VM IP: node_network + index, 예> 10.10.10.1, 10.10.10.2
   * VM 디스크: config.disksize.size, 10G이상만 가능합니다. 
 
-아래는 1Core, 2G 메모리, 10G 디스크를 가지는 VM 한개를 생성하는 샘플 Vagrantfile입니다.
+아래는 1Core, 2G 메모리, 10G 디스크를 가지는 VM 한개를 생성하는 샘플 Vagrantfile입니다.(Hyperledger Fabric 1.4.x)
 
 ```ruby
 ENV["LC_ALL"] = "en_US.UTF-8"
@@ -105,7 +109,7 @@ Vagrant.configure("2") do |config|
   node_network = "10.10.10"
   node_prefix = "node"
   
-  config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "bento/ubuntu-16.04"
   config.vm.box_check_update = false
   config.disksize.size = "10GB" # > 10GB
 
@@ -151,7 +155,7 @@ Vagrant.configure("2") do |config|
             echo "PATH=$PATH:/usr/local/go/bin" >> /etc/profile
     	
     	# Install Hyperledger Fabric Samples, Binaries and Docker Images
-            curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.2 1.4.2 0.4.15
+            curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.3 1.4.3 0.4.15
     	chown -R vagrant:vagrant fabric-samples
   EOF
 end
@@ -161,16 +165,16 @@ end
 
 ## 6. VM(Guest Machine) 생성
 
-Vagrantfile을 기반으로 VM(Guest Machine)을 생성합니다. VM 생성 중 Hyperledger Fabric 1.4.2 에 포함된 fabric-samples 구동을 위한 환경까지 설정됩니다. VM생성시 몇분이 소요됩니다. 
+Vagrantfile을 기반으로 VM(Guest Machine)을 생성합니다. VM 생성 중 Hyperledger Fabric 1.4.x 에 포함된 fabric-samples 구동을 위한 환경까지 설정됩니다. VM생성시 몇분이 소요됩니다. 
 
-* Go, Docker, Docker Compose, Hyperledger Fabric Docker Image & Sample(1.4.2) 설치
+* Go, Docker, Docker Compose, Hyperledger Fabric Docker Image & Sample(1.4.x) 설치
 
 ```shell
 $ ls 
 Vagrantfile
 $ vagrant up
 Bringing machine 'node1' up with 'virtualbox' provider...
-==> node1: Importing base box 'ubuntu/xenial64'...
+==> node1: Importing base box 'bento/ubuntu-16.04'...
 ==> node1: Matching MAC address for NAT networking...
 ==> node1: Setting the name of the VM: node1
 ==> node1: Clearing any previously set network interfaces...
@@ -185,17 +189,17 @@ Bringing machine 'node1' up with 'virtualbox' provider...
     node1: SSH address: 127.0.0.1:2222
 ...
 node1: ===> List out hyperledger docker images
-    node1: hyperledger/fabric-javaenv     1.4.2               1cd707531ce7        3 weeks ago         1.76GB
+    node1: hyperledger/fabric-javaenv     1.4.3               1cd707531ce7        3 weeks ago         1.76GB
     node1: hyperledger/fabric-javaenv     latest              1cd707531ce7        3 weeks ago         1.76GB
-    node1: hyperledger/fabric-ca          1.4.2               f289675c9874        3 weeks ago         253MB
+    node1: hyperledger/fabric-ca          1.4.3               f289675c9874        3 weeks ago         253MB
     node1: hyperledger/fabric-ca          latest              f289675c9874        3 weeks ago         253MB
-    node1: hyperledger/fabric-tools       1.4.2               0abc124a9400        3 weeks ago         1.55GB
+    node1: hyperledger/fabric-tools       1.4.3               0abc124a9400        3 weeks ago         1.55GB
     node1: hyperledger/fabric-tools       latest              0abc124a9400        3 weeks ago         1.55GB
-    node1: hyperledger/fabric-ccenv       1.4.2               fc0f502399a6        3 weeks ago         1.43GB
+    node1: hyperledger/fabric-ccenv       1.4.3               fc0f502399a6        3 weeks ago         1.43GB
     node1: hyperledger/fabric-ccenv       latest              fc0f502399a6        3 weeks ago         1.43GB
-    node1: hyperledger/fabric-orderer     1.4.2               362021998003        3 weeks ago         173MB
+    node1: hyperledger/fabric-orderer     1.4.3               362021998003        3 weeks ago         173MB
     node1: hyperledger/fabric-orderer     latest              362021998003        3 weeks ago         173MB
-    node1: hyperledger/fabric-peer        1.4.2               d79f2f4f3257        3 weeks ago         178MB
+    node1: hyperledger/fabric-peer        1.4.3               d79f2f4f3257        3 weeks ago         178MB
     node1: hyperledger/fabric-peer        latest              d79f2f4f3257        3 weeks ago         178MB
     node1: hyperledger/fabric-zookeeper   0.4.15              20c6045930c8        4 months ago        1.43GB
     node1: hyperledger/fabric-zookeeper   latest              20c6045930c8        4 months ago        1.43GB
