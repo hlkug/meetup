@@ -1,3 +1,9 @@
+#### [다섯번째 미니밋업 (2019년 9월 9일 월요일)](https://www.slideshare.net/hlkug/security-for-hyperledger-fabric-pki-cert-tls-msp/secret/FeAiyfBQCBNksa)
+
+- Security for Hyperledger Fabric - PKI, Cert, TLS, MSP
+
+------
+
 #### [아홉번째 밋업 (2019년 8월 22일 목요일)](https://github.com/hlkug/meetup/tree/master/201908)
 
 - Hyperledger Fabric 소개 및 첫 네트워크 구축하기
