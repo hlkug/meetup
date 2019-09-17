@@ -1,4 +1,4 @@
-#### [다섯번째 미니밋업 (2019년 9월 9일 월요일)](https://www.slideshare.net/hlkug/security-for-hyperledger-fabric-pki-cert-tls-msp/secret/FeAiyfBQCBNksa)
+#### [다섯번째 미니밋업 (2019년 9월 9일 월요일)](https://www.slideshare.net/mobile/secret/FeAiyfBQCBNksa)
 
 - Security for Hyperledger Fabric - PKI, Cert, TLS, MSP
 
