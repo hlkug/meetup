@@ -42,7 +42,7 @@ Latest Version: 2.2.5
 
 VM에 할당하는 디스크 용량을 지정하기 위해 vagrant-disksize 플러그인을 설치합니다.
 
-기본적으로 10G가 할당되며 vagrant-disksize 플러그인을 통해서 10G이상 할당할 수 있습니다. 단, 줄일 수는 없습니다.
+기본적으로 10G이상이 자동적으로 할당되며 vagrant-disksize 플러그인을 통해서 임의의 디스크 용량을 할당할 수 있습니다. 단, 줄일 수는 없습니다.
 
 - https://github.com/sprotheroe/vagrant-disksize
 
@@ -57,24 +57,24 @@ Installed the plugin 'vagrant-disksize (0.1.3)'!
 
 <u>**※ VMWare가 이미 설치되어있는 경우 vagrant 명령어에 --provider virtualbox 옵션을 추가해야 합니다.**</u> 
 
-예> $ vagrant box add **<u>*--provider virtualbox*</u>** bento/ubuntu-16.04
+예> $ vagrant box add **<u>*--provider virtualbox*</u>** bento/ubuntu-18.04
 
 ## 4. Box(Image) 다운로드
 
-Ubuntu 16.04 LTS Box(Image)를 다운 받습니다. Docker Container구동을 위해 Docker Image를 다운 받는것과 동일합니다.
+Ubuntu 18.04 LTS Box(Image)를 다운 받습니다. Docker Container구동을 위해 Docker Image를 다운 받는것과 동일합니다.
 
 ```shell
-$ vagrant box add --provider virtualbox bento/ubuntu-16.04
-==> box: Loading metadata for box 'bento/ubuntu-16.04'
-    box: URL: https://vagrantcloud.com/bento/ubuntu-16.04
-==> box: Adding box 'bento/ubuntu-16.04' (v201906.18.0) for provider: virtualbox
-    box: Downloading: https://vagrantcloud.com/bento/boxes/ubuntu-16.04/versions/201906.18.0/providers/virtualbox.box
+$ vagrant box add --provider virtualbox bento/ubuntu-18.04
+==> box: Loading metadata for box 'bento/ubuntu-18.04'
+    box: URL: https://vagrantcloud.com/bento/ubuntu-18.04
+==> box: Adding box 'bento/ubuntu-18.04' (v201906.18.0) for provider: virtualbox
+    box: Downloading: https://vagrantcloud.com/bento/boxes/ubuntu-18.04/versions/201906.18.0/providers/virtualbox.box
     box: Download redirected to host: vagrantcloud-files-production.s3.amazonaws.com
-==> box: Successfully added box 'bento/ubuntu-16.04' (v201906.18.0) for 'virtualbox'!
+==> box: Successfully added box 'bento/ubuntu-18.04' (v201906.18.0) for 'virtualbox'!
 
 # Box(Image) 목록 확인
 $ vagrant box list
-bento/ubuntu-16.04 (virtualbox, 201906.18.0)
+bento/ubuntu-18.04 (virtualbox, 201906.18.0)
 ```
 
 
@@ -85,15 +85,17 @@ Vagrantfile에 VM 형식, 설정, 프로비전등을 설정하는 설정 파일�
 
 아래 파일을 본인 노트북 특정 위치에 다운로드 받습니다. 
 
-* Hyperledger Fabric 1.4.x
-* https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/1.4.x/Vagrantfile
+* <u>***본 가이드에서는 Hyperledger Fabric 1.4.x 의 Fabric Samples 설치를 대상으로 설명합니다. 다른 버전 설치가 필요한 경우 해당 버전에 맞는 Vagrantfile을 사용하시면 됩니다.***</u> 
+* Vagrantfile
+  * https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/1.4.x/Vagrantfile
+  * https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/2.0.x/Vagrantfile
 * Vagrantfile 설명
   * VM 수: vm_num
   * VM 형식: config.vm.box
   * VM CPU(core수): node_cpu
   * VM 메모리(G): node_memroy
   * VM Network: node_network, 예> 10.10.10.0/24
-  * VM 호스트명(Prefix): node_prefix + index, 예> node1, node2
+  * VM 호스트명(Prefix): node_prefix + index, 예> node1-1, node1-2
   * VM IP: node_network + index, 예> 10.10.10.1, 10.10.10.2
   * VM 디스크: config.disksize.size, 10G이상만 가능합니다. 
 
@@ -109,20 +111,20 @@ Vagrant.configure("2") do |config|
   node_network = "10.10.10"
   node_prefix = "node"
   
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "bento/ubuntu-18.04"
   config.vm.box_check_update = false
   config.disksize.size = "10GB" # > 10GB
 
   (1..vm_num).each do |i|
-    config.vm.define "#{node_prefix}#{i}" do |node|
-      hostname = "#{node_prefix}#{i}"
+    config.vm.define "#{node_prefix}1-#{i}" do |node|
+      hostname = "#{node_prefix}1-#{i}"
       hostip = "#{node_network}.#{i + 1}"
 
       node.vm.hostname = hostname
       node.vm.network "private_network", ip: hostip
 
       node.vm.provider "virtualbox" do |vb|
-        vb.name = "#{node_prefix}#{i}"
+        vb.name = "#{node_prefix}1-#{i}"
         vb.gui = false
         vb.cpus = node_cpu
         vb.memory = node_memory
@@ -135,10 +137,10 @@ Vagrant.configure("2") do |config|
       	apt-get upgrade
 
     	# Install Go
-    	wget https://dl.google.com/go/go1.12.7.linux-amd64.tar.gz
-            tar zxf go1.12.7.linux-amd64.tar.gz
+    	wget https://dl.google.com/go/go1.12.9.linux-amd64.tar.gz
+            tar zxf go1.12.9.linux-amd64.tar.gz
             mv go /usr/local
-            rm go1.12.7.linux-amd64.tar.gz
+            rm go1.12.9.linux-amd64.tar.gz
 
     	# Install Docker
             apt-get -y install apt-transport-https ca-certificates curl software-properties-common
@@ -157,6 +159,10 @@ Vagrant.configure("2") do |config|
     	# Install Hyperledger Fabric Samples, Binaries and Docker Images
             curl -sSL http://bit.ly/2ysbOFE | bash -s -- 1.4.3 1.4.3 0.4.15
     	chown -R vagrant:vagrant fabric-samples
+
+      # Install Node.js 8.x
+      curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+      sudo apt-get install -y nodejs
   EOF
 end
 ```
@@ -173,46 +179,49 @@ Vagrantfile을 기반으로 VM(Guest Machine)을 생성합니다. VM 생성 중 
 $ ls 
 Vagrantfile
 $ vagrant up
-Bringing machine 'node1' up with 'virtualbox' provider...
-==> node1: Importing base box 'bento/ubuntu-16.04'...
-==> node1: Matching MAC address for NAT networking...
-==> node1: Setting the name of the VM: node1
-==> node1: Clearing any previously set network interfaces...
-==> node1: Preparing network interfaces based on configuration...
-    node1: Adapter 1: nat
-    node1: Adapter 2: hostonly
-==> node1: Forwarding ports...
-    node1: 22 (guest) => 2222 (host) (adapter 1)
-==> node1: Running 'pre-boot' VM customizations...
-==> node1: Booting VM...
-==> node1: Waiting for machine to boot. This may take a few minutes...
-    node1: SSH address: 127.0.0.1:2222
+Bringing machine 'node1-1' up with 'virtualbox' provider...
+==> node1-1: Importing base box 'bento/ubuntu-18.04'...
+==> node1-1: Matching MAC address for NAT networking...
+==> node1-1: Setting the name of the VM: node1
+==> node1-1: Clearing any previously set network interfaces...
+==> node1-1: Preparing network interfaces based on configuration...
+    node1-1: Adapter 1: nat
+    node1-1: Adapter 2: hostonly
+==> node1-1: Forwarding ports...
+    node1-1: 22 (guest) => 2222 (host) (adapter 1)
+==> node1-1: Running 'pre-boot' VM customizations...
+==> node1-1: Booting VM...
+==> node1-1: Waiting for machine to boot. This may take a few minutes...
+    node1-1: SSH address: 127.0.0.1:2222
 ...
-node1: ===> List out hyperledger docker images
-    node1: hyperledger/fabric-javaenv     1.4.3               1cd707531ce7        3 weeks ago         1.76GB
-    node1: hyperledger/fabric-javaenv     latest              1cd707531ce7        3 weeks ago         1.76GB
-    node1: hyperledger/fabric-ca          1.4.3               f289675c9874        3 weeks ago         253MB
-    node1: hyperledger/fabric-ca          latest              f289675c9874        3 weeks ago         253MB
-    node1: hyperledger/fabric-tools       1.4.3               0abc124a9400        3 weeks ago         1.55GB
-    node1: hyperledger/fabric-tools       latest              0abc124a9400        3 weeks ago         1.55GB
-    node1: hyperledger/fabric-ccenv       1.4.3               fc0f502399a6        3 weeks ago         1.43GB
-    node1: hyperledger/fabric-ccenv       latest              fc0f502399a6        3 weeks ago         1.43GB
-    node1: hyperledger/fabric-orderer     1.4.3               362021998003        3 weeks ago         173MB
-    node1: hyperledger/fabric-orderer     latest              362021998003        3 weeks ago         173MB
-    node1: hyperledger/fabric-peer        1.4.3               d79f2f4f3257        3 weeks ago         178MB
-    node1: hyperledger/fabric-peer        latest              d79f2f4f3257        3 weeks ago         178MB
-    node1: hyperledger/fabric-zookeeper   0.4.15              20c6045930c8        4 months ago        1.43GB
-    node1: hyperledger/fabric-zookeeper   latest              20c6045930c8        4 months ago        1.43GB
-    node1: hyperledger/fabric-kafka       0.4.15              b4ab82bbaf2f        4 months ago        1.44GB
-    node1: hyperledger/fabric-kafka       latest              b4ab82bbaf2f        4 months ago        1.44GB
-    node1: hyperledger/fabric-couchdb     0.4.15              8de128a55539        4 months ago        1.5GB
-    node1: hyperledger/fabric-couchdb     latest              8de128a55539        4 months ago        1.5GB
+node1-1: ===> List out hyperledger docker images
+    node1-1: hyperledger/fabric-javaenv     1.4.3               1cd707531ce7        3 weeks ago         1.76GB
+    node1-1: hyperledger/fabric-javaenv     latest              1cd707531ce7        3 weeks ago         1.76GB
+    node1-1: hyperledger/fabric-ca          1.4.3               f289675c9874        3 weeks ago         253MB
+    node1-1: hyperledger/fabric-ca          latest              f289675c9874        3 weeks ago         253MB
+    node1-1: hyperledger/fabric-tools       1.4.3               0abc124a9400        3 weeks ago         1.55GB
+    node1-1: hyperledger/fabric-tools       latest              0abc124a9400        3 weeks ago         1.55GB
+    node1-1: hyperledger/fabric-ccenv       1.4.3               fc0f502399a6        3 weeks ago         1.43GB
+    node1-1: hyperledger/fabric-ccenv       latest              fc0f502399a6        3 weeks ago         1.43GB
+    node1-1: hyperledger/fabric-orderer     1.4.3               362021998003        3 weeks ago         173MB
+    node1-1: hyperledger/fabric-orderer     latest              362021998003        3 weeks ago         173MB
+    node1-1: hyperledger/fabric-peer        1.4.3               d79f2f4f3257        3 weeks ago         178MB
+    node1-1: hyperledger/fabric-peer        latest              d79f2f4f3257        3 weeks ago         178MB
+    node1-1: hyperledger/fabric-zookeeper   0.4.15              20c6045930c8        4 months ago        1.43GB
+    node1-1: hyperledger/fabric-zookeeper   latest              20c6045930c8        4 months ago        1.43GB
+    node1-1: hyperledger/fabric-kafka       0.4.15              b4ab82bbaf2f        4 months ago        1.44GB
+    node1-1: hyperledger/fabric-kafka       latest              b4ab82bbaf2f        4 months ago        1.44GB
+    node1-1: hyperledger/fabric-couchdb     0.4.15              8de128a55539        4 months ago        1.5GB
+    node1-1: hyperledger/fabric-couchdb     latest              8de128a55539        4 months ago        1.5GB
+    node1-1: Unpacking nodejs (8.16.1-1nodesource1) ...
+    node1-1: Setting up nodejs (8.16.1-1nodesource1) ...
+    node1-1: Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
     
 # VM 상태 확인
 $ vagrant status
 Current machine states:
 
-node1                     running (virtualbox)
+node1-1                     running (virtualbox)
 
 The VM is running. To stop this VM, you can run `vagrant halt` to
 shut it down forcefully, or you can run `vagrant suspend` to simply
@@ -225,23 +234,29 @@ simply run `vagrant up`.
 ## 7. VM(Guest Machine) 접속
 
 ```shell
-$ vagrant ssh node1
-Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-157-generic x86_64)
+$ vagrant ssh node1-1
+Welcome to Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-51-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
  * Support:        https://ubuntu.com/advantage
 
-8 packages can be updated.
-0 updates are security updates.
+  System information as of Mon Sep 16 21:23:54 UTC 2019
 
-New release '18.04.2 LTS' available.
-Run 'do-release-upgrade' to upgrade to it.
+  System load:  0.8               Users logged in:        0
+  Usage of /:   8.0% of 61.80GB   IP address for eth0:    10.0.2.15
+  Memory usage: 15%               IP address for eth1:    10.10.10.2
+  Swap usage:   0%                IP address for docker0: 172.17.0.1
+  Processes:    94
 
 
-vagrant@node1:~$ ls
+92 packages can be updated.
+55 updates are security updates.
+
+
+vagrant@node1-1:~$ ls
 fabric-samples
-vagrant@node1:~$ exit
+vagrant@node1-1:~$ exit
 
 $
 ```
@@ -251,13 +266,13 @@ $
 ## 8. VM(Guest Machine) 중지
 
 ```shell
-$ vagrant halt node1
-==> node1: Attempting graceful shutdown of VM...
+$ vagrant halt node1-1
+==> node1-1: Attempting graceful shutdown of VM...
 
 $ vagrant status
 Current machine states:
 
-node1                     poweroff (virtualbox)
+node1-1                     poweroff (virtualbox)
 
 The VM is powered off. To restart the VM, simply run `vagrant up`
 ```
@@ -267,43 +282,34 @@ The VM is powered off. To restart the VM, simply run `vagrant up`
 ## 9. VM(Guest Machine) 재시작
 
 ```shell
-$ vagrant up node1
-Bringing machine 'node1' up with 'virtualbox' provider...
-==> node1: Clearing any previously set forwarded ports...
-==> node1: Clearing any previously set network interfaces...
-==> node1: Preparing network interfaces based on configuration...
-    node1: Adapter 1: nat
-    node1: Adapter 2: hostonly
-==> node1: Forwarding ports...
-    node1: 22 (guest) => 2222 (host) (adapter 1)
-==> node1: Running 'pre-boot' VM customizations...
-==> node1: Booting VM...
-==> node1: Waiting for machine to boot. This may take a few minutes...
-    node1: SSH address: 127.0.0.1:2222
-    node1: SSH username: vagrant
-    node1: SSH auth method: private key
-==> node1: Machine booted and ready!
-==> node1: Checking for guest additions in VM...
-    node1: The guest additions on this VM do not match the installed version of
-    node1: VirtualBox! In most cases this is fine, but in rare cases it can
-    node1: prevent things such as shared folders from working properly. If you see
-    node1: shared folder errors, please make sure the guest additions within the
-    node1: virtual machine match the version of VirtualBox you have installed on
-    node1: your host and reload your VM.
-    node1:
-    node1: Guest Additions Version: 5.1.38
-    node1: VirtualBox Version: 6.0
-==> node1: Setting hostname...
-==> node1: Configuring and enabling network interfaces...
-==> node1: Mounting shared folders...
-    node1: /vagrant => /Users/yunho.chung/Vagrant/fabric
-==> node1: Machine already provisioned. Run `vagrant provision` or use the `--provision`
-==> node1: flag to force provisioning. Provisioners marked to run always will still run.
+$ vagrant up node1-1
+Bringing machine 'node1-1' up with 'virtualbox' provider...
+==> node1-1: Clearing any previously set forwarded ports...
+==> node1-1: Clearing any previously set network interfaces...
+==> node1-1: Preparing network interfaces based on configuration...
+    node1-1: Adapter 1: nat
+    node1-1: Adapter 2: hostonly
+==> node1-1: Forwarding ports...
+    node1-1: 22 (guest) => 2222 (host) (adapter 1)
+==> node1-1: Running 'pre-boot' VM customizations...
+==> node1-1: Booting VM...
+==> node1-1: Waiting for machine to boot. This may take a few minutes...
+    node1-1: SSH address: 127.0.0.1:2222
+    node1-1: SSH username: vagrant
+    node1-1: SSH auth method: private key
+==> node1-1: Machine booted and ready!
+==> node1-1: Checking for guest additions in VM...
+==> node1-1: Setting hostname...
+==> node1-1: Configuring and enabling network interfaces...
+==> node1-1: Mounting shared folders...
+    node1-1: /vagrant => /Users/yunho.chung/Vagrant/fabric
+==> node1-1: Machine already provisioned. Run `vagrant provision` or use the `--provision`
+==> node1-1: flag to force provisioning. Provisioners marked to run always will still run.
 
 $ vagrant status
 Current machine states:
 
-node1                     running (virtualbox)
+node1-1                     running (virtualbox)
 
 The VM is running. To stop this VM, you can run `vagrant halt` to
 shut it down forcefully, or you can run `vagrant suspend` to simply
@@ -316,15 +322,15 @@ simply run `vagrant up`.
 ## 10. VM(Guest Machine) 삭제
 
 ```shell
-$ vagrant destroy node1
-    node1: Are you sure you want to destroy the 'node1' VM? [y/N] y
-==> node1: Forcing shutdown of VM...
-==> node1: Destroying VM and associated drives...
+$ vagrant destroy node1-1
+    node1-1: Are you sure you want to destroy the 'node1-1' VM? [y/N] y
+==> node1-1: Forcing shutdown of VM...
+==> node1-1: Destroying VM and associated drives...
 
 $ vagrant status
 Current machine states:
 
-node1                     not created (virtualbox)
+node1-1                     not created (virtualbox)
 
 The environment has not yet been created. Run `vagrant up` to
 create the environment. If a machine is not created, only the
