@@ -1,3 +1,13 @@
+#### [열번째 밋업 (2019년 9월 21일 토요일)](https://github.com/hlkug/meetup/tree/master/201909)
+
+- Hyperledger 재단 및 Project 소개, 엔터프라이즈 블록체인의 Trend
+- 오라클 블록체인 소개, Azure Blockchain Service, GCP상의 하이퍼레저 Sawtooth 구축
+- Hyperledger Fabric 코인 및 Dapps 사례, R3 Corda 소개, Hyperledger Besu 소개
+- 하이퍼레저 2.0과 이전 버전과의 비교, Fabric high-throughput
+- 하이퍼레저 패브릭의 MSP 동작방식 확인, 쿠버네티스 기반 Hyperledger Fabric 30분만에 맛보기
+
+------
+
 #### [다섯번째 미니밋업 (2019년 9월 9일 월요일)](https://www.slideshare.net/mobile/secret/FeAiyfBQCBNksa)
 
 - Security for Hyperledger Fabric - PKI, Cert, TLS, MSP
