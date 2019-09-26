@@ -2,7 +2,7 @@
 
 | Track#1                                                      | Track#2                                                      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| Hyperledger 재단 및 Project 소개(이제응, The Linux Foundation Korea) | [실습] [하이퍼레저 2.0과 이전 버전과의 비교](https://github.com/robertchoi/Hyperledger20/tree/master/190921_마포세미나)(최규남, 가천대학교) |
+| [Hyperledger 재단 및 Project 소개](https://www.slideshare.net/secret/QvuBEUtHfAXPp)(이제응, The Linux Foundation Korea) | [실습] [하이퍼레저 2.0과 이전 버전과의 비교](https://github.com/robertchoi/Hyperledger20/tree/master/190921_마포세미나)(최규남, 가천대학교) |
 | [엔터프라이즈 블록체인의 Trend](https://www.slideshare.net/secret/A1rK6qAsC2wwAh)(윤석빈, 한국 블록체인 학회) | [실습] 하이퍼레저 패브릭의 MSP 동작방식 확인                 |
 | 오라클 블록체인 소개(이희종, 오라클)                         | [실습] [Fabric high-throughput](https://www.slideshare.net/mobile/kyungseoklee2/fabric-highthroughtput/kyungseoklee2/fabric-highthroughtput)(이경석, 겜퍼) |
 | Azure Blockchain Service(이권일, Microsoft)                  | [쿠버네티스 기반 Hyperledger Fabric 30분만에 맛보기](https://github.com/hlkug/meetup/tree/master/201904)(HLKUG) |
