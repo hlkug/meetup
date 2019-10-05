@@ -1,0 +1,81 @@
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+Vagrant.configure("2") do |config|
+  vm_num = 1
+  node_cpu = 1 # 1Core
+  node_memory = "2048" # 2G Memory
+  node_network = "10.30.30"
+  node_prefix = "indy"
+  
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.box_check_update = false
+  #config.disksize.size = "10GB" # > 10GB
+
+  (1..vm_num).each do |i|
+    config.vm.define "#{node_prefix}-#{i}" do |node|
+      hostname = "#{node_prefix}-#{i}"
+      hostip = "#{node_network}.#{i + 1}"
+
+      node.vm.hostname = hostname
+      node.vm.network "private_network", ip: hostip
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{node_prefix}-#{i}"
+        vb.gui = false
+        vb.cpus = node_cpu
+        vb.memory = node_memory
+      end
+    end
+  end
+
+  config.vm.provision "shell", inline: <<-EOF
+        cd /etc/apt
+        mv sources.list sources.list-
+        wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/ubuntu/16.04/sources.list
+        cp sources.list /tmp
+
+    	apt-get update
+      	apt-get upgrade
+
+    	# Install Go
+    	wget https://dl.google.com/go/go1.12.10.linux-amd64.tar.gz
+        tar zxf go1.12.10.linux-amd64.tar.gz
+        mv go /usr/local
+        rm go1.12.10.linux-amd64.tar.gz
+
+    	# Install Docker
+        apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+    	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    	add-apt-repository \
+    	   "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    	apt-get update
+    	apt-get -y install docker-ce
+        usermod -aG docker vagrant
+
+    	# Install Docker Compose
+    	curl -L https://github.com/docker/compose/releases/download/1.24.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    	chmod +x /usr/local/bin/docker-compose
+        echo "PATH=$PATH:/usr/local/go/bin" >> /etc/profile
+
+	# Install Indy
+        cd /home/vagrant
+        git clone -b v1.11.1 https://github.com/hyperledger/indy-sdk.git
+
+        cd indy-sdk/ci
+        cp /tmp/sources.list .
+        sed -i -e 's/1.9.2~dev871/1.10.0~dev916/g' \
+            -e 's/1.9.2~dev1061/1.10.0~dev1095/g' \
+            -e 's/127.0.0.1/10.0.0.2/g' indy-pool.dockerfile
+
+        sed -i '2i COPY sources.list /etc/apt' indy-pool.dockerfile
+        sed -i '3i RUN ln -s /usr/lib/apt/methods/http /usr/lib/apt/methods/https' indy-pool.dockerfile
+        docker build -t indy_pool -f indy-pool.dockerfile .
+
+        cd /home/vagrant/indy-sdk/docs/getting-started
+        cp /tmp/sources.list .
+        sed -i '2i COPY sources.list /etc/apt' getting-started.dockerfile
+        sed -i '3i RUN ln -s /usr/lib/apt/methods/http /usr/lib/apt/methods/https' getting-started.dockerfile
+        docker build -t getting-started -f getting-started.dockerfile .
+        chown -R vagrant:vagrant /home/vagrant/indy-sdk
+  EOF
+end
