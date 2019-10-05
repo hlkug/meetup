@@ -19,6 +19,8 @@ Vagrant는 완전한 휴대용 개발 환경을 만들고 관리하기 위한 �
 아래 링크에서 본인 노트북 OS에 맞는 프로그램을 다운로드 받아 설치합니다.
 
 - https://www.virtualbox.org/wiki/Downloads
+- Windows 10 환경에 설치 시 Hyper-V 비활성화 작업 및 VirtualBox Extension Pack설치 등을 해야 합니다.
+  - 참고 문서 - https://webnautes.tistory.com/448
 
 
 
