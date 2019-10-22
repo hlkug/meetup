@@ -1,3 +1,9 @@
+#### [열한번째 밋업 (2019년 10월 17일 목요일)](https://github.com/hlkug/meetup/tree/master/201910)
+
+- DID(Decentralized Identity) 그리고 Hyperledger Indy - Getting Started
+
+------
+
 #### [열번째 밋업 (2019년 9월 21일 토요일)](https://github.com/hlkug/meetup/tree/master/201909)
 
 - Hyperledger 재단 및 Project 소개, 엔터프라이즈 블록체인의 Trend
