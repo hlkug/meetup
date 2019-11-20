@@ -1,3 +1,10 @@
+#### [열두번째 밋업 (2019년 11월 19일 화요일)](https://github.com/hlkug/meetup/tree/master/201911)
+
+- Hyperledger APAC 줄리안 고든 부사장에게 들어보는 오픈소스 블록체인
+- 2019 Singapore's FinTech Festival (SFF) 후기
+
+------
+
 #### [열한번째 밋업 (2019년 10월 17일 목요일)](https://github.com/hlkug/meetup/tree/master/201910)
 
 - DID(Decentralized Identity) 그리고 Hyperledger Indy - Getting Started
