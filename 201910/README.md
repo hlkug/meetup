@@ -8,7 +8,7 @@
 - **질문 목록(sli.do)**
 - **자료**
   - 사전 작업 자료 - [http://bit.ly/hlpre_19](http://bit.ly/hlpre_19)
-  - 발표 자료 - [https://www.slideshare.net/secret/vM8s9djfxW9izY](https://www.slideshare.net/secret/vM8s9djfxW9izY) 
+  - 발표 자료 - https://www.slideshare.net/secret/cWV119m8ENRDWL
   - 실습 자료 - [https://github.com/hlkug/meetup/blob/master/201910/핸즈온%20랩.md](https://github.com/hlkug/meetup/blob/master/201910/핸즈온%20랩.md)
 - **설문 조사 결과**
   - https://github.com/hlkug/meetup/blob/master/201910/feedback.pdf
