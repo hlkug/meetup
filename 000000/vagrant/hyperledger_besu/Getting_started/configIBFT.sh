@@ -24,6 +24,11 @@ wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperl
 cd ../Node-4
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode4.sh
 
+chmod +x $PROJECTROOT/Node-1/startNode1.sh
+chmod +x $PROJECTROOT/Node-2/startNode2.sh
+chmod +x $PROJECTROOT/Node-3/startNode3.sh
+chmod +x $PROJECTROOT/Node-4/startNode4.sh
+
 cd $PROJECTROOT/networkFiles/keys
 cp ./$(ls | awk 'NR == 1')/* $PROJECTROOT/Node-1/data/
 cp ./$(ls | awk 'NR == 2')/* $PROJECTROOT/Node-2/data/
