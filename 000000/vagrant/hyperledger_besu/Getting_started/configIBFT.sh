@@ -1,5 +1,6 @@
 #!/bin/sh
 
+PROJECTROOT=~/IBFT-Network
 # configure IBFT Network
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/ibftConfigFile.json
 mkdir -p IBFT-Network/Node-1/data
@@ -22,3 +23,9 @@ cd ../Node-3
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode3.sh
 cd ../Node-4
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode4.sh
+
+cd $PROJECTROOT/networkFiles/keys
+cp ./$(ls | awk 'NR == 1')/* $PROJECTROOT/Node-1/data/
+cp ./$(ls | awk 'NR == 2')/* $PROJECTROOT/Node-2/data/
+cp ./$(ls | awk 'NR == 3')/* $PROJECTROOT/Node-3/data/
+cp ./$(ls | awk 'NR == 4')/* $PROJECTROOT/Node-4/data/
