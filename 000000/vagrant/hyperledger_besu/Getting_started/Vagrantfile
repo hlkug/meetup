@@ -60,5 +60,6 @@ Vagrant.configure("2") do |config|
 
 				# Download sample files
 				wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/configIBFT.sh
+				chmod +x configIBFT.sh
   EOF
 end
