@@ -1,0 +1,62 @@
+ENV["LC_ALL"] = "en_US.UTF-8"
+
+Vagrant.configure("2") do |config|
+  vm_num = 1
+  node_cpu = 1 # 1Core
+  node_memory = "2048" # 2G Memory
+  node_network = "10.30.30"
+  node_prefix = "besu"
+  
+  config.vm.box = "ubuntu/xenial64"
+  config.vm.box_check_update = false
+  #config.disksize.size = "10GB" # > 10GB
+
+  (1..vm_num).each do |i|
+    config.vm.define "#{node_prefix}-#{i}" do |node|
+      hostname = "#{node_prefix}-#{i}"
+      hostip = "#{node_network}.#{i + 1}"
+
+      node.vm.hostname = hostname
+      node.vm.network "private_network", ip: hostip
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{node_prefix}-#{i}"
+        vb.gui = false
+        vb.cpus = node_cpu
+        vb.memory = node_memory
+      end
+    end
+  end
+
+  config.vm.provision "shell", inline: <<-EOF
+        cd /etc/apt
+        mv sources.list sources.list-
+        wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/ubuntu/16.04/sources.list
+        cp sources.list /tmp
+    		apt-get update
+      	apt-get upgrade
+
+				#Install java
+				sudo add-apt-repository ppa:openjdk-r/ppa
+				apt update
+				apt install -y openjdk-11-jdk
+
+				#Install besu
+				cd
+				wget https://bintray.com/api/ui/download/hyperledger-org/besu-repo/besu-1.3.7.tar.gz
+				tar -xzvf besu-1.3.7.tar.gz
+				mv besu-1.3.7 besu
+				wget https://bintray.com/consensys/binaries/download_file?file_path=orion-1.5.0-SNAPSHOT.tar.gz
+				tar -zxvf download_file?file_path=orion-1.5.0-SNAPSHOT.tar.gz
+				mv orion-1.5.0-SNAPSHOT orion
+
+				wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
+
+        # configure IBFT Network
+        cd
+        mkdir -p IBFT-Network/Node-1/data
+        mkdir -p IBFT-Network/Node-2/data
+        mkdir -p IBFT-Network/Node-3/data
+        mkdir -p IBFT-Network/Node-4/data
+  EOF
+end
