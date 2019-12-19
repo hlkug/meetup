@@ -14,11 +14,11 @@ wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperl
 
 cp ./networkFiles/genesis.json .
 
-
-cd
-mkdir scripts
-cd scripts
+cd Node-1
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode1.sh
+cd ../Node-2
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode2.sh
+cd ../Node-3
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode3.sh
+cd ../Node-4
 wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/startNode4.sh
