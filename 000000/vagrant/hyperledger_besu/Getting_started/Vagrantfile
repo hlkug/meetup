@@ -39,7 +39,7 @@ Vagrant.configure("2") do |config|
 				#Install java
 				sudo add-apt-repository ppa:openjdk-r/ppa
 				apt update
-				apt install -y openjdk-11-jdk
+				apt install -y openjdk-11-jdk build-essential
 
 				#Install besu
 				cd
@@ -50,13 +50,15 @@ Vagrant.configure("2") do |config|
 				tar -zxvf download_file?file_path=orion-1.5.0-SNAPSHOT.tar.gz
 				mv orion-1.5.0-SNAPSHOT orion
 
+				# install libsodium
 				wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
+				tar -zxvf LATEST.tar.gz
+				cd libsodium-stable/
+				./configure
+				make && make check
+				make install
 
-        # configure IBFT Network
-        cd
-        mkdir -p IBFT-Network/Node-1/data
-        mkdir -p IBFT-Network/Node-2/data
-        mkdir -p IBFT-Network/Node-3/data
-        mkdir -p IBFT-Network/Node-4/data
+				# Download sample files
+				wget https://raw.githubusercontent.com/hlkug/meetup/master/000000/vagrant/hyperledger_besu/Getting_started/configIBFT.sh
   EOF
 end
