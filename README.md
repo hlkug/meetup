@@ -1,3 +1,20 @@
+
+
+#### [열네번째 밋업 (2020년 1월 22일 수요일)](https://github.com/hlkug/meetup/tree/master/202001)
+
+- 2019 Hyperledger Annual Report
+- PegaSys - Pegasys Plus
+- R3 - Corda Enterprise
+- IBM - IBM Blockchain Platform
+
+------
+
+#### [열세번째 밋업 (2019년 12월 19일 목요일)](https://github.com/hlkug/meetup/tree/master/201912)
+
+- Hyperledger Besu - Getting Started
+
+------
+
 #### [열두번째 밋업 (2019년 11월 19일 화요일)](https://github.com/hlkug/meetup/tree/master/201911)
 
 - Hyperledger APAC 줄리안 고든 부사장에게 들어보는 오픈소스 블록체인
