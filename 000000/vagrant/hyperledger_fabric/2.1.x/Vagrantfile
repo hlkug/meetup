@@ -1,0 +1,66 @@
+ENV["LC_ALL"] = "en_US.UTF-8"
+Vagrant.require_version ">= 1.7.4"
+
+Vagrant.configure("2") do |config|
+  vm_num = 1
+  node_cpu = 1 # 1Core
+  node_memory = "2048" # 2G Memory
+  node_network = "10.20.20"
+  node_prefix = "node"
+  
+  config.vm.box = "bento/ubuntu-18.04"
+  config.vm.box_check_update = false
+  #config.disksize.size = "10GB" # > 10GB
+
+  (1..vm_num).each do |i|
+    config.vm.define "#{node_prefix}2-#{i}" do |node|
+      hostname = "#{node_prefix}2-#{i}"
+      hostip = "#{node_network}.#{i + 1}"
+
+      node.vm.hostname = hostname
+      node.vm.network "private_network", ip: hostip
+
+      node.vm.provider "virtualbox" do |vb|
+        vb.name = "#{node_prefix}2-#{i}"
+        vb.gui = false
+        vb.cpus = node_cpu
+        vb.memory = node_memory
+      end
+    end
+  end
+
+  config.vm.provision "shell", inline: <<-EOF
+    	apt-get update
+      apt-get upgrade
+
+    	# Install Go
+    	wget https://dl.google.com/go/go1.14.2.linux-amd64.tar.gz
+      tar zxf go1.14.2.linux-amd64.tar.gz
+      mv go /usr/local
+      rm go1.14.2.linux-amd64.tar.gz
+
+    	# Install Docker
+      apt-get -y install apt-transport-https ca-certificates curl software-properties-common
+    	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    	add-apt-repository \
+    	   "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+    	apt-get update
+    	apt-get -y install docker-ce
+      usermod -aG docker vagrant
+
+    	# Install Docker Compose
+    	curl -L https://github.com/docker/compose/releases/download/1.25.5/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    	chmod +x /usr/local/bin/docker-compose
+      echo "PATH=$PATH:/usr/local/go/bin" >> /etc/profile
+    	
+    	# Install Hyperledger Fabric Samples, Binaries and Docker Images
+      curl -sSL https://bit.ly/2ysbOFE | bash -s -- 2.1.0 1.4.6 0.4.18
+
+    	chown -R vagrant:vagrant fabric-samples
+
+      # Install Node.js 10.x
+      curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+  EOF
+end
+

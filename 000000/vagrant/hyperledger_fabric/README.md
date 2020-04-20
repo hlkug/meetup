@@ -91,6 +91,7 @@ Vagrantfile에 VM 형식, 설정, 프로비전등을 설정하는 설정 파일�
 * Vagrantfile
   * https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/1.4.x/Vagrantfile
   * https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/2.0.x/Vagrantfile
+  * https://github.com/hlkug/meetup/tree/master/000000/vagrant/hyperledger_fabric/2.1.x/Vagrantfile
 * Vagrantfile 설명
   * VM 수: vm_num
   * VM 형식: config.vm.box
