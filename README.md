@@ -1,4 +1,14 @@
+#### [열여섯번째 밋업 (2020년 8월 20일 목요일)](https://github.com/hlkug/meetup/tree/master/202008)
 
+- Self-Sovereign Identity: Decentralized Identifiers & Verifiable Credentials
+
+------
+
+#### [열다섯번째 밋업 (2020년 4월 23일 수요일)](https://github.com/hlkug/meetup/tree/master/202004)
+
+- Hyperledger Fabric v2.0: What's New?
+
+------
 
 #### [열네번째 밋업 (2020년 1월 22일 수요일)](https://github.com/hlkug/meetup/tree/master/202001)
 
