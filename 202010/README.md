@@ -14,3 +14,6 @@
   - Twitter - http://twitter.com/hashgraph
   - YouTube - https://www.youtube.com/channel/UCIhE4NYpaX9E9SssFnwrjww
 
+* **밋업 현장**
+
+  ![meetup](images/meetup.jpg)
