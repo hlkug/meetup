@@ -1,3 +1,9 @@
+#### [열여덟번째 밋업 (2020년 10월 14일 수요일)](https://github.com/hlkug/meetup/tree/master/202010)
+
+- Getting Started with Hedera Hashgraph
+
+------
+
 #### [열일곱번째 밋업 (2020년 9월 17일 목요일)](https://github.com/hlkug/meetup/tree/master/202009)
 
 - 글로벌 CBDC 트랜드 및 Hedera Hashgraph 전략

@@ -1,19 +1,33 @@
 ---
-author: Hedera Hashgraph - Getting Started
-title: 정연호(Hyperledger Korea User Group)
+
 ---
 
-<div style="text-align:center;font-size: 30px;font-weight:bold">
-  Hedera Hashgraph - Getting Started
-</div>
+Table of Contents
+=================
 
-<div style="text-align:right">
-작성자: 정연호(yunho.chung@outlook.com)
-</div>
+   * [0. 참고](#0-참고)
+   * [1. 준비사항](#1-준비사항)
+      * [1.1 Account 생성](#11-account-생성)
+      * [1.2 테스트 환경 구성](#12-테스트-환경-구성)
+         * [1.2.1 Hedera SDK](#121-hedera-sdk)
+         * [1.2.2 Microsoft Visual Studio Code(VS Code), Node.js 설치](#122-microsoft-visual-studio-codevs-code-nodejs-설치)
+         * [1.2.3 실습 소스 다운로드](#123-실습-소스-다운로드)
+         * [1.2.4 VS Code에서 소스 코드 열기](#124-vs-code에서-소스-코드-열기)
+         * [1.2.5 패키지(라이브러리) 설치](#125-패키지라이브러리-설치)
+         * [1.2.6 Account 정보 설정](#126-account-정보-설정)
+   * [2. Cryptocurrency](#2-cryptocurrency)
+      * [2.1 Balance 확인](#21-balance-확인)
+      * [2.2 HBar(tinybar) 송금](#22-hbartinybar-송금)
+   * [3. File Service](#3-file-service)
+      * [3.1 파일 생성 &amp; 읽기](#31-파일-생성--읽기)
+      * [3.2 파일 생성 &amp; 삭제](#32-파일-생성--삭제)
+   * [4. Smart Contract](#4-smart-contract)
+      * [4.1 스마트 컨트랙트 배포 및 함수 실행](#41-스마트-컨트랙트-배포-및-함수-실행)
+   * [5. Consensus Service](#5-consensus-service)
+      * [5.1 토픽 생성 및 Submit/Subscribe](#51-토픽-생성-및-submitsubscribe)
+
 
 [TOC]
-
-
 
 # 0. 참고
 
