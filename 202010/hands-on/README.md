@@ -5,6 +5,7 @@
 Table of Contents
 =================
 
+   * [Table of Contents](#table-of-contents)
    * [0. 참고](#0-참고)
    * [1. 준비사항](#1-준비사항)
       * [1.1 Account 생성](#11-account-생성)
@@ -18,6 +19,11 @@ Table of Contents
    * [2. Cryptocurrency](#2-cryptocurrency)
       * [2.1 Balance 확인](#21-balance-확인)
       * [2.2 HBar(tinybar) 송금](#22-hbartinybar-송금)
+      * [2.3 다중 서명(Multi-Signature)](#23-다중-서명multi-signature)
+         * [Step 1. Submitter, Approver 키 생성 및 Account 생성](#step-1-submitter-approver-키-생성-및-account-생성)
+         * [Step 2. Submitter가 서명한 트랜잭션 파일로 저장](#step-2-submitter가-서명한-트랜잭션-파일로-저장)
+         * [Step 3. Approver가 서명한 트랜잭션 파일로 저장](#step-3-approver가-서명한-트랜잭션-파일로-저장)
+         * [Step 4. Submitter,Approver가 서명한 트랜잭션을 Submitter가 실행](#step-4-submitterapprover가-서명한-트랜잭션을-submitter가-실행)
    * [3. File Service](#3-file-service)
       * [3.1 파일 생성 &amp; 읽기](#31-파일-생성--읽기)
       * [3.2 파일 생성 &amp; 삭제](#32-파일-생성--삭제)
@@ -259,6 +265,290 @@ process.env.ACCOUNT_ID:  0.0.1688
 * 트랜잭션 수수료
 
   ![9](images/9.png)
+
+## 2.3 다중 서명(Multi-Signature)
+
+Account는 다수개의 Key(Private/Public)를 가질 수 있으며 HBar를 송금하거나 트랜잭션을 발생 시킬 때 특정 키의 서명이 필요함을 설정할 수 있습니다.(Account 생성시..)
+
+예> 직원이 트랜잰션을 생성한 후 관리자에게 보내 서명을 받고 서명 받은 트랜잭션 실행
+
+* 참고 자료
+  * Hedera Technical Insights: Hierarchical Multi-Signature support in Hedera
+    * https://hedera.com/blog/hierarchical-multi-signature-support-in-hedera
+  * Keys & Signatures on Hedera Hashgraph
+    * https://medium.com/@sreejithkaimal/keys-signatures-on-hedera-hashgraph-e173814456d5
+
+### Step 1. Submitter, Approver 키 생성 및 Account 생성
+
+* 파일: cryptocurrency/multisig/1.createaccount.js
+
+```javascript
+require('dotenv').config({ path: '../../.env' });
+const HederaClient = require('../../hedera-client');
+
+const { Client, CryptoTransferTransaction, Ed25519PrivateKey, ThresholdKey, AccountCreateTransaction } = require("@hashgraph/sdk");
+
+async function createAccount() {
+    const myClient =  HederaClient; //Client.forTestnet();
+    myClient.setOperator(process.env.ACCOUNT_ID, process.env.PRIVATE_KEY);
+
+    // Generate our key lists
+    const privateKeyList = [];
+    const publicKeyList = [];
+
+    // Submitter 개인키,공개키 생성
+    const submitterPrivateKey = await Ed25519PrivateKey.generate();
+    const submitterPublicKey = submitterPrivateKey.publicKey;
+    privateKeyList.push(submitterPrivateKey);
+    publicKeyList.push(submitterPublicKey);
+    console.log(`Submitter Private Key: ${submitterPrivateKey}`);
+    console.log(`Submitter Public Key: ${submitterPublicKey}`);
+
+    console.log('');
+
+     // Approver 개인키,공개키 생성
+     const approverPrivateKey = await Ed25519PrivateKey.generate();
+     const approverPublicKey = approverPrivateKey.publicKey;
+     privateKeyList.push(approverPrivateKey);
+     publicKeyList.push(approverPublicKey);
+     console.log(`Approver Private Key: ${approverPrivateKey}`);
+     console.log(`Approver Public Key: ${approverPublicKey}`);
+
+    // Submitter와 Approver의 서명이 있어야 트랜잭션을 발생시킬 수 있도록
+    // Threshold Key목록에 Submitter, Approver 공개키 저장
+    const thresholdKey = new ThresholdKey(2); // Define min # of sigs
+    for (const element of publicKeyList) {
+        thresholdKey.add(element);
+    }
+
+    // 새로운 Account 생성
+    const accountCreateTransaction = await new AccountCreateTransaction()
+        .setKey(thresholdKey)
+        .setInitialBalance(1000000000) // 초기 발란스 100
+        .execute(myClient);
+
+    const receipt = await accountCreateTransaction.getReceipt(myClient);
+
+    console.log('\nAccound ID:', receipt.getAccountId().toString());
+}
+
+createAccount();
+```
+
+* 실행
+
+```bash
+$ cd $SOURCE_HOME/cryptocurrency/multisig
+
+# Submitter, Approver Key 생성
+$ node 1.createaccount.js 
+Submitter Private Key: 302e020100300506032b65700422042038e905d9e1f1b595a8a0a95ab92373e6d07b09a66f4388a2e2e7cd2d2d8b7e5c
+Submitter Public Key: 302a300506032b657003210049a804b9b322c290baa016af7cb6cae0ab5cca180ff63397f2f2d6253db157d2
+
+Approver Private Key: 302e020100300506032b6570042204201358c83c3515a675a1441249e211f7db00ca5191bdce59ec1c49407fac62f3c8
+Approver Public Key: 302a300506032b65700321008d530186fbd058bf4eba839b52a5c2227aa6d96786647e4fa842e0888d4cc4e6
+
+# 트랜잭션 발생시 Submitter, Approver 서명이 필수로 설정한 계정 생성
+Accound ID: 0.0.86195
+```
+
+### Step 2. Submitter가 서명한 트랜잭션 파일로 저장
+
+Hbar 송금과 관련된 트랜잭션을 생성한 후 Submitter Private Key로 서명한 후 파일로 저장합니다.
+
+* 파일: cryptocurrency/multisig/2.createtxbysubmitter.js
+  * <u>***Step 1.에서 생성한 Account ID와 Submitter Private Key 값을 사용합니다.***</u>
+
+```javascript
+require('dotenv').config({ path: '../../.env' });
+fs = require('fs');
+
+const HederaClient = require('../../hedera-client');
+
+const { Client, CryptoTransferTransaction, AccountBalanceQuery, Ed25519PrivateKey } = require("@hashgraph/sdk");
+
+async function ccreateTxBySubmitter() {
+    const accountId = ''; # Step 1에서 생성한 Account ID
+    const submitterPrivateKeyStr = ''; #Step 1에서 생성한 Submitter Private Key
+
+    const myClient =  HederaClient; //Client.forTestnet();
+    // myClient.setOperator(process.env.ACCOUNT_ID, process.env.PRIVATE_KEY);
+    myClient.setOperator(accountId, submitterPrivateKeyStr);
+
+    // 트랜잭션 생성
+    const tx = await new CryptoTransferTransaction()
+        .addSender(accountId, 5)
+        .addRecipient('0.0.3', 5)
+        .build(myClient);
+
+    const submitterPrivateKey = await Ed25519PrivateKey.fromString(
+        submitterPrivateKeyStr
+    );
+
+    // Submitter의 Private Key로 서명
+    tx.sign(submitterPrivateKey);
+    
+    fs.writeFile('signedtxbysumitter.base64', Buffer.from(tx.toBytes()).toString('base64'), function (err) {
+        if (err) return console.log(err);
+        console.log('Saved to signedtxbysumitter.base64 file.');
+    });
+
+    // console.log(tx)
+
+    
+}
+
+ccreateTxBySubmitter();
+```
+
+* 실행
+
+```bash
+$ cd $SOURCE_HOME/cryptocurrency/multisig
+
+# Submitter가 서명한 트랜잭션을 파일로 저장
+$ node 2.createtxbysubmitter.js 
+Saved to signedtxbysumitter.base64 file.
+```
+
+### Step 3. Approver가 서명한 트랜잭션 파일로 저장
+
+Step 3.에서 Submitter가 서명한 후 저장한 트랜잭션에 Approver의 Private Key로 서명한 후 파일로 저장합니다.
+
+* 파일: cryptocurrency/multisig/3.signtxbyapprover.js
+  * <u>***Step 1.에서 생성한 Account ID와 Approver Private Key 값을 사용합니다.***</u>
+
+```javascript
+require('dotenv').config({ path: '../../.env' });
+fs = require('fs');
+
+const HederaClient = require('../../hedera-client');
+
+const { Client, CryptoTransferTransaction, AccountBalanceQuery, Ed25519PrivateKey, Transaction } = require("@hashgraph/sdk");
+
+async function signTxByApprover() {
+    const accountId = ''; # Step 1에서 생성한 Account ID
+    const approverPrivateKeyStr = ''; #Step 1에서 생성한 Approver Private Key
+
+    const myClient =  HederaClient; //Client.forTestnet();
+    // myClient.setOperator(process.env.ACCOUNT_ID, process.env.PRIVATE_KEY);
+    myClient.setOperator(accountId, approverPrivateKeyStr);
+
+   
+    let balance = new AccountBalanceQuery()
+        .setAccountId(accountId)
+        .execute(myClient);
+        
+    console.log(`${accountId} balance = ${(await balance).value()}`);
+
+    fs.readFile('signedtxbysumitter.base64', 'utf8', async function (err, data) {
+        if (err) {
+          return console.log(err);
+        }
+
+        const approverPrivateKey = await Ed25519PrivateKey.fromString(
+            approverPrivateKeyStr
+        );
+
+        // Approver Private Key로 서명
+        const tx = await Transaction.fromBytes(Buffer.from(data, 'base64'));
+        tx.sign(approverPrivateKey);
+
+        fs.writeFile('signedtxbysumitterbyapprover.base64', Buffer.from(tx.toBytes()).toString('base64'), function (err) {
+            if (err) return console.log(err);
+            console.log('Saved to signedtxbysumitterbyapprover.base64 file.');
+        });
+    });
+}
+
+signTxByApprover();
+```
+
+* 실행
+
+```bash
+$ cd $SOURCE_HOME/cryptocurrency/multisig
+
+# Approver가 서명한 트랜잭션을 파일로 저장
+$ node 3.signtxbyapprover.js 
+0.0.86195 balance = 10
+Saved to signedtxbysumitterbyapprover.base64 file.
+```
+
+### Step 4. Submitter,Approver가 서명한 트랜잭션을 Submitter가 실행
+
+Step 2,3을 통해 Submitter, Approver 서명이 포함된 트랜잭션을 Submitter가 실행합니다.
+
+* 파일: cryptocurrency/multisig/4.executetxbysubmmitter.js
+  * <u>***Step 1.에서 생성한 Account ID와 Submitter Private Key 값을 사용합니다.***</u>
+
+```javascript
+require('dotenv').config({ path: '../../.env' });
+fs = require('fs');
+
+const HederaClient = require('../../hedera-client');
+
+const { Client, CryptoTransferTransaction, AccountBalanceQuery, Ed25519PrivateKey, Transaction } = require("@hashgraph/sdk");
+
+async function executeTxBySubmitter() {
+    const accountId = '0.0.86195';
+    const submitterPrivateKeyStr = '302e020100300506032b65700422042038e905d9e1f1b595a8a0a95ab92373e6d07b09a66f4388a2e2e7cd2d2d8b7e5c';
+
+    const myClient =  HederaClient; //Client.forTestnet();
+    // myClient.setOperator(process.env.ACCOUNT_ID, process.env.PRIVATE_KEY);
+    myClient.setOperator(accountId, submitterPrivateKeyStr);
+
+   
+    let balance = new AccountBalanceQuery()
+        .setAccountId(accountId)
+        .execute(myClient);
+        
+    console.log(`${accountId} balance = ${(await balance).value()}`);
+
+    fs.readFile('signedtxbysumitterbyapprover.base64', 'utf8', async function (err, data) {
+        if (err) {
+          return console.log(err);
+        }
+        
+        const tx = await Transaction.fromBytes(Buffer.from(data, 'base64'));
+        const transactionId = await tx.execute(myClient);
+
+        console.log('tx id:', transactionId);
+        const transactionReceipt = await transactionId.getReceipt(myClient);
+        console.log('\nreciept: ', transactionReceipt);
+
+        // const record = await transactionId.getRecord(myClient);
+        // console.log('\nrecord: ', record);
+
+        balance = new AccountBalanceQuery()
+            .setAccountId(accountId)
+            .execute(myClient);
+            
+        console.log(`${accountId} balance = ${(await balance).value()}`);      });
+
+   
+}
+
+executeTxBySubmitter();
+```
+
+* 실행
+
+```bash
+$ cd $SOURCE_HOME/cryptocurrency/multisig
+
+# Hbar 송금 트랜잭션 실행
+$ node 4.executetxbysubmmitter.js 
+0.0.86195 balance = 10
+tx id: 0.0.86195@1603636033.900000000
+
+reciept:  {
+  "status": "SUCCESS"
+}
+0.0.86195 balance = 9.99578438
+```
+
+
 
 # 3. File Service
 

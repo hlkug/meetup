@@ -6,8 +6,8 @@ const HederaClient = require('../../hedera-client');
 const { Client, CryptoTransferTransaction, AccountBalanceQuery, Ed25519PrivateKey, Transaction } = require("@hashgraph/sdk");
 
 async function signTxByApprover() {
-    const accountId = '0.0.86193';
-    const approverPrivateKeyStr = '302e020100300506032b6570042204206733822d92216d1f68d10c3645910495a42565f31cca919eaaaf3bb0914a6482';
+    const accountId = '0.0.86195';
+    const approverPrivateKeyStr = '302e020100300506032b6570042204201358c83c3515a675a1441249e211f7db00ca5191bdce59ec1c49407fac62f3c8';
 
     const myClient =  HederaClient; //Client.forTestnet();
     // myClient.setOperator(process.env.ACCOUNT_ID, process.env.PRIVATE_KEY);
@@ -25,12 +25,12 @@ async function signTxByApprover() {
           return console.log(err);
         }
 
-        const approvalPrivateKey = await Ed25519PrivateKey.fromString(
+        const approverPrivateKey = await Ed25519PrivateKey.fromString(
             approverPrivateKeyStr
         );
 
         const tx = await Transaction.fromBytes(Buffer.from(data, 'base64'));
-        tx.sign(approvalPrivateKey);
+        tx.sign(approverPrivateKey);
 
         fs.writeFile('signedtxbysumitterbyapprover.base64', Buffer.from(tx.toBytes()).toString('base64'), function (err) {
             if (err) return console.log(err);
