@@ -1,7 +1,7 @@
 require('dotenv').config();
 const { Client } = require('@hashgraph/sdk');
 
-console.log('process.env.ACCOUNT_ID: ', process.env.ACCOUNT_ID);
+// console.log('process.env.ACCOUNT_ID: ', process.env.ACCOUNT_ID);
 
 const HederaClient = new Client({
     network: { '0.testnet.hedera.com:50211': '0.0.3'},
