@@ -5,7 +5,7 @@ const HederaClient = require('../../hedera-client');
 
 const { Client, CryptoTransferTransaction, AccountBalanceQuery, Ed25519PrivateKey } = require("@hashgraph/sdk");
 
-async function ccreateTxBySubmitter() {
+async function createTxBySubmitter() {
     const accountId = '0.0.86195';
     const submitterPrivateKeyStr = '302e020100300506032b65700422042038e905d9e1f1b595a8a0a95ab92373e6d07b09a66f4388a2e2e7cd2d2d8b7e5c';
 
@@ -35,4 +35,4 @@ async function ccreateTxBySubmitter() {
     
 }
 
-ccreateTxBySubmitter();
+createTxBySubmitter();
