@@ -1,3 +1,10 @@
+#### [열아홉번째 밋업 (2020년 11월 11일 수요일)](https://github.com/hlkug/meetup/tree/master/202011)
+
+- Introducing ConsenSys Quorum
+- DeFi 개념 및 활용 사례
+
+------
+
 #### [열여덟번째 밋업 (2020년 10월 14일 수요일)](https://github.com/hlkug/meetup/tree/master/202010)
 
 - Getting Started with Hedera Hashgraph
