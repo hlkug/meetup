@@ -4,7 +4,9 @@ const { Client } = require('@hashgraph/sdk');
 // console.log('process.env.ACCOUNT_ID: ', process.env.ACCOUNT_ID);
 
 const HederaClient = new Client({
-    network: { '0.testnet.hedera.com:50211': '0.0.3'},
+    // network: { '0.testnet.hedera.com:50211': '0.0.3'},
+    // Testnet Reverse Proxy BY YH
+    network: { '13.124.85.3:80': '0.0.3'},
     operator: {
         accountId: process.env.ACCOUNT_ID,
         privateKey: process.env.PRIVATE_KEY
