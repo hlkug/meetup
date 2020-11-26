@@ -39,9 +39,9 @@ async function executeTxBySubmitter() {
             .setAccountId(accountId)
             .execute(myClient);
             
-        console.log(`${accountId} balance = ${(await balance).value()}`);      });
-
-   
+        console.log(`${accountId} balance = ${(await balance).value()}`);      
+        process.exit(0);
+    });
 }
 
 executeTxBySubmitter();

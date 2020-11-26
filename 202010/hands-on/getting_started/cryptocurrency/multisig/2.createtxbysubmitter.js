@@ -28,6 +28,7 @@ async function createTxBySubmitter() {
     fs.writeFile('signedtxbysumitter.base64', Buffer.from(tx.toBytes()).toString('base64'), function (err) {
         if (err) return console.log(err);
         console.log('Saved to signedtxbysumitter.base64 file.');
+        process.exit(0);
     });
 
     // console.log(tx)

@@ -45,6 +45,7 @@ async function createAccount() {
     const receipt = await accountCreateTransaction.getReceipt(myClient);
 
     console.log('\nAccound ID:', receipt.getAccountId().toString());
+    process.exit(0);
 }
 
 createAccount();

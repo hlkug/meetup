@@ -42,6 +42,8 @@ async function main() {
     .execute(client);
 
   console.log('fileInfo:', fileInfo);
+
+  process.exit(0);
 }
 
 main();

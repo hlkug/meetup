@@ -96,6 +96,8 @@ async function main() {
     console.log("message:", callResult.getString(0));
 
     client.close();
+
+    process.exit(0);
 }
 
 main();

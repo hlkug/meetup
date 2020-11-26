@@ -38,6 +38,7 @@ async function main() {
   // After deletion, the receipt should NOT contain a file ID
   const deleteFileReceipt = await deleteFileTransactionId.getReceipt(client);
   console.log("deleted file receipt, won't contain a file ID ", JSON.stringify(deleteFileReceipt) + "\n");  
+  process.exit(0);
 }
 
 main();

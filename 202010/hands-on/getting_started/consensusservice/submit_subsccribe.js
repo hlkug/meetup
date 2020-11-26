@@ -38,6 +38,8 @@ async function main() {
 
         console.log(`>>> Sent message ${i}: ${hcsMessageReceipt.toString()}`);
     }
+
+    process.exit(0);
 }
 
 function sleep(ms) {

@@ -9,6 +9,7 @@ async function getBalance() {
         .execute(HederaClient);
         
     console.log(`${HederaClient._operatorAccount} balance = ${(await balance).value()}`);
+    process.exit(0);
 }
 
 getBalance();

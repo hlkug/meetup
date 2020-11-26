@@ -35,6 +35,7 @@ async function signTxByApprover() {
         fs.writeFile('signedtxbysumitterbyapprover.base64', Buffer.from(tx.toBytes()).toString('base64'), function (err) {
             if (err) return console.log(err);
             console.log('Saved to signedtxbysumitterbyapprover.base64 file.');
+            process.exit(0);
         });
     });
 }

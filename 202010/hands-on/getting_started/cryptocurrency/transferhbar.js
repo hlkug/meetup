@@ -17,6 +17,7 @@ async function transferHbar() {
 
     const record = await transactionId.getRecord(myClient);
     console.log('\nrecord: ', record);
+    process.exit(0);
 }
 
 transferHbar();
