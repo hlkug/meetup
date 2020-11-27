@@ -28,6 +28,7 @@ async function main() {
   const fileId = receipt.getFileId();
   console.log('tx id:', receipt);
   console.log("new file id = ", fileId);
+  console.log('\n');
 
   // 파일 읽기
   const fileContents = await new FileContentsQuery()
@@ -35,6 +36,7 @@ async function main() {
     .execute(client);
 
   console.log(`file contents: ${new TextDecoder().decode(fileContents)}`);
+  console.log('\n');
 
   // 파일 정보 조회
   const fileInfo = await new FileInfoQuery()
@@ -42,6 +44,7 @@ async function main() {
     .execute(client);
 
   console.log('fileInfo:', fileInfo);
+  console.log('\n');
 
   process.exit(0);
 }
