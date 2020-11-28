@@ -1,5 +1,6 @@
 const { Client, FileCreateTransaction, FileContentsQuery, FileInfoQuery, FileDeleteTransaction, Ed25519PrivateKey, Hbar } = require("@hashgraph/sdk");
 require('dotenv').config({ path: '../.env' });
+const HederaClient = require('../hedera-client');
 
 async function main() {
   console.log('process.env.ACCOUNT_ID:', process.env.ACCOUNT_ID);
@@ -14,8 +15,9 @@ async function main() {
     );
   }
 
-  const client = Client.forTestnet()
-  client.setOperator(operatorAccount, operatorPrivateKey);
+  // const client = Client.forTestnet()
+  // client.setOperator(operatorAccount, operatorPrivateKey);
+  const client = HederaClient;
 
   // 파일 생성
   const transactionId = await new FileCreateTransaction()

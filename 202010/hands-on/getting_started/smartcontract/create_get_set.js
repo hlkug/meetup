@@ -12,18 +12,20 @@ const {
     Hbar 
 } = require("@hashgraph/sdk");
 require('dotenv').config({ path: '../.env' });
+const HederaClient = require('../hedera-client');
 
 async function main() {
     const operatorAccount = process.env.ACCOUNT_ID;
     const operatorPrivateKey = Ed25519PrivateKey.fromString(process.env.PRIVATE_KEY);
 
     // `Client.forMainnet()` is provided for connecting to Hedera mainnet
-    const client = Client.forTestnet();
+    // const client = Client.forTestnet();
 
     // Defaults the operator account ID and key such that all generated transactions will be paid for
     // by this account and be signed by this key
-    client.setOperator(operatorAccount, operatorPrivateKey);
+    // client.setOperator(operatorAccount, operatorPrivateKey);
 
+    const client = HederaClient;
 
     const smartContract = require("./stateful.json");
     const smartContractByteCode = smartContract.contracts[ "stateful.sol:StatefulContract" ].bin;
