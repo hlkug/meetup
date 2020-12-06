@@ -23,16 +23,17 @@ async function main() {
 
     await sleep(5000); // Consensus에서 생성된 토픽을 미러노드에서 인지할 수 있게 delay
     // const myMirrorClient = new MirrorClient('hcs.testnet.mirrornode.hedera.com:5600');
-    const myMirrorClient = new MirrorClient('api.testnet.kabuto.sh:50211');
+    // const myMirrorClient = new MirrorClient('api.testnet.kabuto.sh:50211');
+    const myMirrorClient = new MirrorClient('13.124.85.3:443');
 
     new MirrorConsensusTopicQuery()
-    .setTopicId(topicId)
-    .subscribe(
-        myMirrorClient, 
-        (message) => console.log('<<< Received message from Mirror Node:', message.toString()),
-        (error) => console.log(`Error: ${error.toString()}`));
+        .setTopicId(topicId)
+        .subscribe(
+            myMirrorClient,
+            (message) => console.log('<<< Received message from Mirror Node:', message.toString()),
+            (error) => console.log(`Error: ${error.toString()}`));
 
-    for(let i = 1; i < 4; i++) {
+    for (let i = 1; i < 4; i++) {
         let hcsMessage = await new ConsensusMessageSubmitTransaction().setTopicId(topicId).setMessage(`Hello, HCS! From Message ${i}`).execute(myClient);
         let hcsMessageReceipt = await hcsMessage.getReceipt(myClient);
 
