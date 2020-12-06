@@ -38,7 +38,10 @@ async function main() {
         let hcsMessageReceipt = await hcsMessage.getReceipt(myClient);
 
         console.log(`>>> Sent message ${i}: ${hcsMessageReceipt.toString()}`);
+        await sleep(2000);
     }
+
+    await sleep(5000);
 
     process.exit(0);
 }
