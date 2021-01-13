@@ -1,3 +1,9 @@
+#### [스무번째 밋업 (2021년 1월 13일 수요일)](https://github.com/hlkug/meetup/tree/master/202101)
+
+- HTS(Hedera Token Service), DeFi 스왑 및 유동성 프로토콜
+
+------
+
 #### [열아홉번째 밋업 (2020년 11월 11일 수요일)](https://github.com/hlkug/meetup/tree/master/202011)
 
 - Introducing ConsenSys Quorum
