@@ -1,3 +1,13 @@
+#### [제24회 밋업 (2022년 12월 8일 목요일)](https://github.com/hlkug/meetup/tree/master/202212)
+- NFT
+
+------
+
+#### [제23회 밋업 (2022년 10월 7일 금요일)](https://github.com/hlkug/meetup/tree/master/202210)
+- 블록체인 신사업 & CBDC 소개
+
+------
+
 #### [제22회 밋업 (2021년 8월 26일 목요일)](https://github.com/hlkug/meetup/tree/master/202108)
 
 - 블록체인 지갑의 동작 방식 및 표준
