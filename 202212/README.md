@@ -6,5 +6,6 @@
   - 일시 : 2022년 12월 8일 목요일 19:00 ~ 20:00
   - 참석 인원 : 16명
 - **자료**
-* **밋업 현장**
+- **밋업 현장**
+
 ![IMG_0693](https://raw.githubusercontent.com/hlkug/meetup/master/202212/images/meetup.jpg)
