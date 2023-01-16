@@ -1,4 +1,11 @@
+#### [제25회 밋업 (2023년 1월 12일 목요일)](https://github.com/hlkug/meetup/tree/master/202301)
+
+- 메타버스, STO, Hyperledger, BTC
+
+------
+
 #### [제24회 밋업 (2022년 12월 8일 목요일)](https://github.com/hlkug/meetup/tree/master/202212)
+
 - NFT
 
 ------
